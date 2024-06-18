@@ -239,6 +239,8 @@ function ReferralCode() {
       description: formatReferralCode(data?.user.referralCode || ''),
     });
 
+  const navigate = useRainbowNavigate();
+
   return (
     <Stack gap="12px">
       <TextWithMoreInfo>{i18n.t('points.referral_code')}</TextWithMoreInfo>
@@ -254,11 +256,10 @@ function ReferralCode() {
               onTap={copyReferralCode}
               onClick={copyReferralCode}
             >
-              <Text size="20pt" weight="bold" align="center">
+              <Text size="12pt" weight="bold" align="center">
                 {formatReferralCode(data.user.referralCode)}
               </Text>
             </Card>
-
             <Card
               paddingVertical="12px"
               flexDirection="row"
@@ -274,10 +275,10 @@ function ReferralCode() {
                 color="accent"
                 filter="shadow 12px accent"
                 weight="bold"
-                size={16}
+                size={12}
               />
               <Text
-                size="16pt"
+                size="12pt"
                 weight="bold"
                 color="accent"
                 textShadow="12px accent"
@@ -285,6 +286,37 @@ function ReferralCode() {
               >
                 {i18n.t('copy_link')}
               </Text>
+            </Card>
+            <Card
+              paddingVertical="18px"
+              flexDirection="row"
+              alignItems="center"
+              whileTap={{ scale: 0.98 }}
+              whileFocus={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02 }}
+              width={'fit'}
+              onTap={() =>
+                navigate(ROUTES.POINTS_REFERRAL_QR, {
+                  state: {
+                    referalLink: `https://rainbow.me/points?ref=${data.user.referralCode}`,
+                  },
+                })
+              }
+              onClick={() =>
+                navigate(ROUTES.POINTS_REFERRAL_QR, {
+                  state: {
+                    referalLink: `https://rainbow.me/points?ref=${data.user.referralCode}`,
+                  },
+                })
+              }
+            >
+              <Symbol
+                symbol="qrcode"
+                color="accent"
+                filter="shadow 12px accent"
+                weight="bold"
+                size={12}
+              />
             </Card>
           </>
         ) : (

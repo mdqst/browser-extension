@@ -12,6 +12,7 @@ export const ROUTES = {
   NFT_DETAILS: (collectionId: string, nftId: string) =>
     `/home/nft-details/${collectionId}/${nftId}`,
   POINTS_REFERRAL: '/home/points-referral',
+  POINTS_REFERRAL_QR: '/home/points-referral-qr',
   POINTS_ONBOARDING: '/home/points-onboarding',
   POINTS_WEEKLY_OVERVIEW: '/home/points-weekly-overview',
   CONNECTED: '/connected', // ConnectedApps

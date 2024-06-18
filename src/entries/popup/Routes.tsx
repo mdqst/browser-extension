@@ -42,6 +42,7 @@ import { Approvals } from './pages/home/Approvals/Approvals';
 import { ConnectedApps } from './pages/home/ConnectedApps';
 import NFTDetails from './pages/home/NFTs/NFTDetails';
 import { PointsOnboardingSheet } from './pages/home/Points/PointsOnboardingSheet';
+import { PointsQRSheet } from './pages/home/Points/PointsQRSheet';
 import { PointsReferralSheet } from './pages/home/Points/PointsReferralSheet';
 import { PointsWeeklyOverview } from './pages/home/Points/WeeklyPointsOverview';
 import { TokenDetails } from './pages/home/TokenDetails/TokenDetails';
@@ -484,6 +485,20 @@ const ROUTE_DATA = [
         background="surfaceSecondary"
       >
         <QRCodePage />
+      </AnimatedRoute>
+    ),
+  },
+  {
+    path: ROUTES.POINTS_REFERRAL_QR,
+    element: (
+      <AnimatedRoute
+        direction="up"
+        navbar
+        navbarIcon="ex"
+        protectedRoute
+        background="surfaceSecondary"
+      >
+        <PointsQRSheet />
       </AnimatedRoute>
     ),
   },
