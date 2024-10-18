@@ -1,13 +1,11 @@
 import { CrosschainQuote, Quote, configureSDK } from '@rainbow-me/swaps';
 import { useMemo } from 'react';
 
-import { useCurrentCurrencyStore } from '~/core/state';
 import { ParsedSearchAsset } from '~/core/types/assets';
 import { ChainName } from '~/core/types/chains';
 import {
   convertRawAmountToBalance,
   convertRawAmountToDecimalFormat,
-  convertRawAmountToNativeDisplay,
   divide,
   handleSignificantDecimals,
   multiply,
@@ -49,11 +47,6 @@ export const useSwapReviewDetails = ({
   assetToSell: ParsedSearchAsset;
   quote: Quote | CrosschainQuote;
 }) => {
-  const { currentCurrency } = useCurrentCurrencyStore();
-  const nativeAsset = useNativeAsset({
-    chainId: assetToSell.chainId,
-  });
-
   const bridges = useMemo(
     () => (quote as CrosschainQuote)?.routes?.[0]?.usedBridgeNames || [],
     [quote],
@@ -88,19 +81,16 @@ export const useSwapReviewDetails = ({
       },
     ).amount;
     return [
-      convertRawAmountToNativeDisplay(
-        quote.feeInEth.toString(),
-        nativeAsset?.decimals || 18,
-        nativeAsset?.price?.value || '0',
-        currentCurrency,
-      ).display,
+      convertRawAmountToBalance(quote.fee.toString(), {
+        decimals: quote.feeTokenAsset?.decimals || 18,
+        symbol: quote.feeTokenAsset?.symbol,
+      })?.display,
       `${handleSignificantDecimals(multiply(feePercentage, 100), 2)}%`,
     ];
   }, [
-    currentCurrency,
-    nativeAsset?.decimals,
-    nativeAsset?.price?.value,
-    quote.feeInEth,
+    quote.feeTokenAsset?.decimals,
+    quote.feeTokenAsset?.symbol,
+    quote.fee,
     quote.feePercentageBasisPoints,
   ]);
 
